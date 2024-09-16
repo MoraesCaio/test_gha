@@ -18,7 +18,7 @@ on:
 
 jobs:
   run-flake8:
-    if: ${{ inputs.run_flake8 == 'true' }}
+    if: ${{ inputs.run_flake8 == 'true' || github.event.inputs.run_flake8 == 'true' }}
     runs-on: ubuntu-latest
     env:
       AWS_ACCOUNT_ID: "547507413871"
