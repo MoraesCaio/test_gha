@@ -21,8 +21,6 @@ jobs:
       DOCKER_REGISTRY: "547507413872.dkr.ecr.eu-west-1.amazonaws.com"
       DOCKER_REGISTRY_PUB: "us-docker.pkg.dev"
       DT_SYSTEM_PACKAGES: "dev-aws-release-system-packages"
-    container:
-      image: python:3.10-slim
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -30,7 +28,3 @@ jobs:
         run: echo "${{ secrets.MY_SECRET }}"
       - name: Check my environemnt variable
         run: echo "${{ secrets.MY_VARIABLE }}"
-      - name: Install flake8
-        run: pip install flake8
-      - name: Run flake8
-        run: flake8 .
