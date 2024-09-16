@@ -5,13 +5,13 @@ on:
     inputs:
       run_flake8:
         description: 'True to run flake8 check'
+        type: boolean
         required: false
         default: false
-        type: boolean
 
 jobs:
   flake8-check:
-    if: ${{ inputs.run_flake8 == 'true' }}
+    if: ${{ github.event.inputs.run_flake8 == 'true' }}
     uses: ./.github/workflows/run-flake8.yml
     with:
       run_flake8: true
