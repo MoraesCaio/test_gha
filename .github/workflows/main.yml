@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       run_flake8:
-        description: 'True to print to STDOUT'
+        description: 'True to run flake8 check'
         required: false
         default: false
         type: boolean
