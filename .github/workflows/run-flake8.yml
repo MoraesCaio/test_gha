@@ -14,7 +14,7 @@ jobs:
   run-flake8:
     if: ${{ inputs.run_flake8 == 'true' || github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
-    environment: prod
+    environment: pre
     env:
       AWS_ACCOUNT_ID: "547507413872"
       AWS_REGION: "eu-west-1"
