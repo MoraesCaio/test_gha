@@ -35,6 +35,11 @@ jobs:
             echo "MY_SECRET is not equal to prod"
           fi
           echo "${{ vars.MY_VARIABLE }}"
+          if [ "${{ vars.MY_VARIABLE }}" == "prod" ]; then
+            echo "MY_VARIABLE is equal to prod"
+          else
+            echo "MY_VARIABLE is not equal to prod"
+          fi
       - name: Install flake8
         run: pip install flake8
       - name: Run flake8
