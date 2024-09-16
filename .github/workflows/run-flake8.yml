@@ -27,4 +27,4 @@ jobs:
       - name: Check my secrets
         run: echo "${{ secrets.MY_SECRET }}"
       - name: Check my environemnt variable
-        run: echo "${{ secrets.MY_VARIABLE }}"
+        run: echo "${{ vars.MY_VARIABLE }}"
