@@ -29,13 +29,14 @@ jobs:
       - name: Check my secrets and variables
         run: |
           echo "${{ secrets.MY_SECRET }}"
-          if [ "${{ secrets.MY_SECRET }}" == "prod" ]; then
+          # sh uses = instead of ==
+          if [ "${{ secrets.MY_SECRET }}" = "prod" ]; then
             echo "MY_SECRET is equal to prod"
           else
             echo "MY_SECRET is not equal to prod"
           fi
           echo "${{ vars.MY_VARIABLE }}"
-          if [ "${{ vars.MY_VARIABLE }}" == "prod" ]; then
+          if [ "${{ vars.MY_VARIABLE }}" = "prod" ]; then
             echo "MY_VARIABLE is equal to prod"
           else
             echo "MY_VARIABLE is not equal to prod"
