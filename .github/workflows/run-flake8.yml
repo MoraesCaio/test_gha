@@ -24,7 +24,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Check my secrets
-        run: echo "${{ secrets.MY_SECRET }}"
-      - name: Check my environemnt variable
-        run: echo "${{ vars.MY_VARIABLE }}"
+      - name: Check my secrets and variables
+        run: |
+          echo "${{ secrets.MY_SECRET }}"
+          if [[ "${{ secrets.MY_SECRET }}" == "prod" ]]; then
+            echo "MY_SECRET is equal to prod"
+          else
+            echo "MY_SECRET is not equal to prod"
+          fi
+          echo "${{ vars.MY_VARIABLE }}"
