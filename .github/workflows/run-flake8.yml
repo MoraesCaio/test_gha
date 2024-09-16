@@ -9,6 +9,12 @@ on:
         default: true
         type: boolean
   workflow_dispatch:
+    inputs:
+      run_flake8:
+        description: 'True to run flake8 check'
+        required: false
+        default: true
+        type: boolean
 
 jobs:
   run-flake8:
