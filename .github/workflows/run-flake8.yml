@@ -29,7 +29,7 @@ jobs:
       - name: Check my secrets and variables
         run: |
           echo "${{ secrets.MY_SECRET }}"
-          if [[ "${{ secrets.MY_SECRET }}" == "prod" ]]; then
+          if [ "${{ secrets.MY_SECRET }}" == "prod" ]; then
             echo "MY_SECRET is equal to prod"
           else
             echo "MY_SECRET is not equal to prod"
