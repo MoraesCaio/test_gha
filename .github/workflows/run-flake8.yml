@@ -27,7 +27,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Check my secrets
-        run: echo "{{ secrets.MY_SECRET }}"
+        run: echo "${{ secrets.MY_SECRET }}"
       - name: Install flake8
         run: pip install flake8
       - name: Run flake8
