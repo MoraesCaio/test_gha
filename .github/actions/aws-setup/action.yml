@@ -19,15 +19,14 @@ runs:
   using: "composite"
   steps:
     - name: Set Up AWS CLI
+      shell: bash
       run: |
         apt-get update
         apt-get install -y awscli
     - name: Docker Login to AWS
+      shell: bash
       run: |
         echo "Account: ${{ inputs.aws_account_id }}"
         echo "Region: ${{ inputs.aws_region }}"
         echo "Registry: ${{ inputs.docker_registry }}"
         aws ecr get-login-password --region "${{ inputs.aws_region }}" | docker login --username AWS --password-stdin "${{ inputs.docker_registry }}"
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
