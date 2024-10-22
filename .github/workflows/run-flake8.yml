@@ -45,6 +45,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: python:3.10-slim
+    needs: init
     steps:
       - name: Download Docker config artifact
         uses: actions/download-artifact@v3
