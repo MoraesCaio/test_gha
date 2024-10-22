@@ -28,5 +28,5 @@ runs:
         echo "$AWS_ACCESS_KEY_ID"
         aws ecr get-login-password --region "${{ inputs.aws_region }}" | docker login --username AWS --password-stdin "${{ inputs.docker_registry }}"
       env:
-        AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
-        AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+        AWS_ACCESS_KEY_ID: ${{ env.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ env.AWS_SECRET_ACCESS_KEY }}
