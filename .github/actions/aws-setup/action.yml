@@ -18,11 +18,11 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Set Up AWS CLI
-      shell: bash
-      run: |
-        apt-get update
-        apt-get install -y awscli
+    # - name: Set Up AWS CLI
+    #   shell: bash
+    #   run: |
+    #     apt-get update
+    #     apt-get install -y awscli
     - name: Docker Login to AWS
       shell: bash
       run: |
