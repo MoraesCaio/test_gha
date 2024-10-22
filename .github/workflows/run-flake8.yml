@@ -5,42 +5,25 @@ on:
     inputs:
       run_flake8:
         description: "Trigger flake8 check"
-        required: false
-        default: true
+        required: true
         type: boolean
-  workflow_dispatch:
 
 jobs:
   run-flake8:
     if: ${{ inputs.run_flake8 == 'true' || github.event_name == 'workflow_dispatch' }}
+    environment: dev-build
     runs-on: ubuntu-latest
-    environment: pre
+    container:
+      image: python:3.10-slim
     env:
       AWS_ACCOUNT_ID: "547507413872"
       AWS_REGION: "eu-west-1"
       DOCKER_REGISTRY: "547507413872.dkr.ecr.eu-west-1.amazonaws.com"
       DOCKER_REGISTRY_PUB: "us-docker.pkg.dev"
       DT_SYSTEM_PACKAGES: "dev-aws-release-system-packages"
-    container:
-      image: python:3.10-slim
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Check my secrets and variables
-        run: |
-          echo "${{ secrets.MY_SECRET }}"
-          # sh uses = instead of ==
-          if [ "${{ secrets.MY_SECRET }}" = "prod" ]; then
-            echo "MY_SECRET is equal to prod"
-          else
-            echo "MY_SECRET is not equal to prod"
-          fi
-          echo "${{ vars.MY_VARIABLE }}"
-          if [ "${{ vars.MY_VARIABLE }}" = "prod" ]; then
-            echo "MY_VARIABLE is equal to prod"
-          else
-            echo "MY_VARIABLE is not equal to prod"
-          fi
       - name: Install flake8
         run: pip install flake8
       - name: Run flake8
