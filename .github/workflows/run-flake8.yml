@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest  # This runs the job on an Ubuntu machine
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Look at the code
         run: |
           pwd
@@ -39,7 +39,7 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       - name: Upload Docker config artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: docker-config
           path: ~/.docker/config.json
@@ -52,7 +52,7 @@ jobs:
     needs: init
     steps:
       - name: Download Docker config artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: docker-config
           path: ~/.docker/
