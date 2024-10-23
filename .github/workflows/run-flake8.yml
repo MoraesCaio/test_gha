@@ -2,11 +2,7 @@ name: "Run Flake8"
 
 on:
   workflow_call:
-    inputs:
-      run_flake8:
-        description: "Trigger flake8 check"
-        required: true
-        type: boolean
+  workflow_dispatch:
 
 env:
   AWS_ACCOUNT_ID: "547507413871"
@@ -17,7 +13,7 @@ env:
 
 jobs:
   init:
-    if: ${{ inputs.run_flake8 == 'true' || github.event_name == 'workflow_dispatch' }}
+    if: ${{ github.event_name == 'workflow_dispatch' }}
     environment: dev-build
     runs-on: ubuntu-latest  # This runs the job on an Ubuntu machine
     steps:
