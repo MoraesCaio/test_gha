@@ -20,6 +20,7 @@ jobs:
       DT_SYSTEM_PACKAGES: "dev-aws-release-system-packages"
     runs-on: ubuntu-latest  # This runs the job on an Ubuntu machine
     container:
+      image: cimg/aws:2023.09
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -27,8 +28,8 @@ jobs:
         run: |
           pwd
           ls -la
-          echo ">> $AWS_ACCESS_KEY_ID <<"
           echo ">> ${{ secrets.AWS_ACCESS_KEY_ID }} <<"
+          echo ">> $AWS_ACCESS_KEY_ID <<"
       - name: Check variables
         run: |
           echo "Account: ${{ secrets.AWS_ACCESS_KEY_ID }}"
