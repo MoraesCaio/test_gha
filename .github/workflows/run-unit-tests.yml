@@ -28,7 +28,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
       - name: AWS Setup
         uses: ./.github/actions/aws-setup
         with:
@@ -38,19 +37,12 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
-      - name: Restore Docker Auth
-        run: |
-          mv .docker ..  # Adjust paths as necessary
-
       - name: Prepare .env file
         run: |
           echo TARGET_URL="internal run" > tests/.env
           echo DEFAULT_ADMIN="admin" >> tests/.env
           echo DEFAULT_PASSWORD="not required" >> tests/.env
           echo LOG_LEVEL_DEFAULT="${{ inputs.tests_log_lvl }}" >> tests/.env
-        # Assuming LOG_LEVEL_DEFAULT is passed as a secret or input
-
       - name: Run unit tests in Docker
         run: |
           docker run \
@@ -60,7 +52,6 @@ jobs:
             -v $(pwd)/:/app/ \
             ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/datatailr/unit_tests:latest \
             -c 'source $(poetry env info --path)/bin/activate && pytest tests -m "unit and not internal"'
-
       - name: Store Logs as Artifacts
         uses: actions/upload-artifact@v3
         with:
