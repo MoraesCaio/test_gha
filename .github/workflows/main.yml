@@ -30,6 +30,8 @@ jobs:
     if: ${{ github.event.inputs.run_flake8 == 'true' }}
     uses: ./.github/workflows/run-flake8.yml
     secrets: inherit
+    with:
+      run_flake8: ${{ github.event.inputs.run_flake8 }}
   unit-tests:
     if: ${{ github.event_name == 'push' || github.event.inputs.run_unit_tests == 'true' }}
     uses: ./.github/workflows/run-unit-tests.yml
