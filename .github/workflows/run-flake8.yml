@@ -55,6 +55,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: docker-config
+          path: ~/.docker/config.json
       - name: Check Docker config
         run: |
           cat ~/.docker/config.json
