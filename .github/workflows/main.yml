@@ -32,7 +32,7 @@ jobs:
   unit-tests:
     if: ${{ github.event_name == 'push' && github.event.inputs.run_unit_tests == true || github.event_name == 'workflow_dispatch' && github.event.inputs.run_unit_tests == true }}
     uses: ./.github/workflows/run-unit-tests.yml
+    secrets: inherit
     with:
       run_unit_tests: true
       tests_log_lvl: ${{ github.event.inputs.tests_log_lvl }}
-    secrets: inherit

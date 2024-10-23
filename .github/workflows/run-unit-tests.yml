@@ -22,7 +22,7 @@ env:
 
 jobs:
   run-unit-tests:
-    if: ${{ inputs.run_unit_tests == 'true' }}
+    if: ${{ inputs.run_unit_tests == 'true' || github.event_name == 'workflow_dispatch' }}
     environment: dev-build
     runs-on: ubuntu-latest
     steps:
