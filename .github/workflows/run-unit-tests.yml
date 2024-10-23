@@ -12,6 +12,12 @@ on:
         type: string
         required: false
         default: 'INFO'
+  push:
+    branches:
+      - '**'
+    # https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows
+    # tags:
+    #   - v1.**
 
 env:
   AWS_ACCOUNT_ID: "547507413871"
