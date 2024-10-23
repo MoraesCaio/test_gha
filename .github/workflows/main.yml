@@ -21,7 +21,9 @@ on:
   push:
     branches:
       - '**'
-      - 'master'
+    # https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows
+    # tags:
+    #   - v1.**
 
 jobs:
   flake8-check:
@@ -31,7 +33,7 @@ jobs:
     with:
       run_flake8: true
   unit-tests:
-    if: ${{ github.event_name == 'push' && github.event.inputs.run_unit_tests == true || github.event_name == 'workflow_dispatch' && github.event.inputs.run_unit_tests == true }}
+    if: ${{ (github.event_name == 'push' && github.event.inputs.run_unit_tests == true) || (github.event_name == 'workflow_dispatch' && github.event.inputs.run_unit_tests == true) }}
     uses: ./.github/workflows/run-unit-tests.yml
     secrets: inherit
     with:
