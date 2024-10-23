@@ -42,7 +42,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: docker-config
-          path: .docker/config.json
+          path: ~/.docker/config.json
 
   run-flake8:
     environment: dev-build
