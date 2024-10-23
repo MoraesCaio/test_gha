@@ -30,7 +30,7 @@ jobs:
     with:
       run_flake8: true
   unit-tests:
-    if: ${{ github.event_name == 'push' && github.event.inputs.run_unit_tests == true }}
+    if: ${{ github.event_name == 'push' && github.event.inputs.run_unit_tests == true || github.event_name == 'workflow_dispatch' && github.event.inputs.run_unit_tests == true }}
     uses: ./.github/workflows/run-unit-tests.yml
     with:
       run_unit_tests: true
