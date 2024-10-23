@@ -1,0 +1,68 @@
+name: "Run Unit Tests"
+
+on:
+  workflow_call:
+    inputs:
+      run_unit_tests:
+        description: "Trigger unit tests"
+        required: true
+        type: boolean
+      tests_log_lvl:
+        description: 'Log level for tests'
+        type: string
+        required: false
+        default: 'INFO'
+
+env:
+  AWS_ACCOUNT_ID: "547507413871"
+  AWS_REGION: "eu-west-1"
+  DOCKER_REGISTRY: "547507413871.dkr.ecr.eu-west-1.amazonaws.com"
+  DOCKER_REGISTRY_PUB: "us-docker.pkg.dev"
+  DT_SYSTEM_PACKAGES: "dev-aws-release-system-packages"
+
+jobs:
+  run-unit-tests:
+    if: ${{ inputs.run_unit_tests == 'true' || github.event_name == 'workflow_dispatch' }}
+    environment: dev-build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: AWS Setup
+        uses: ./.github/actions/aws-setup
+        with:
+          aws_account_id: ${{ env.AWS_ACCOUNT_ID }}
+          aws_region: ${{ env.AWS_REGION }}
+          docker_registry: ${{ env.DOCKER_REGISTRY }}
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Restore Docker Auth
+        run: |
+          mv .docker ..  # Adjust paths as necessary
+
+      - name: Prepare .env file
+        run: |
+          echo TARGET_URL="internal run" > tests/.env
+          echo DEFAULT_ADMIN="admin" >> tests/.env
+          echo DEFAULT_PASSWORD="not required" >> tests/.env
+          echo LOG_LEVEL_DEFAULT="${{ inputs.tests_log_lvl }}" >> tests/.env
+        # Assuming LOG_LEVEL_DEFAULT is passed as a secret or input
+
+      - name: Run unit tests in Docker
+        run: |
+          docker run \
+            --rm \
+            -it \
+            --entrypoint bash \
+            -v $(pwd)/:/app/ \
+            ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/datatailr/unit_tests:latest \
+            -c 'source $(poetry env info --path)/bin/activate && pytest tests -m "unit and not internal"'
+
+      - name: Store Logs as Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: logs
+          path: /tmp/logs
