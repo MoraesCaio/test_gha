@@ -30,6 +30,8 @@ jobs:
           ls -la
           echo ">> ${{ secrets.AWS_ACCESS_KEY_ID }} <<"
           echo ">> $AWS_ACCESS_KEY_ID <<"
+          echo ">> ${{ secrets.SOMETHING_RANDOM }} <<"
+          echo ">> $SOMETHING_RANDOM <<"
       - name: AWS Setup
         uses: ./.github/actions/aws-setup
         with:
