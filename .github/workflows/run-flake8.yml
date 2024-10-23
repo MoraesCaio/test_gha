@@ -56,9 +56,9 @@ jobs:
         with:
           name: docker-config
           path: ~/.docker/
-      - name: Check Docker config
-        run: |
-          cat ~/.docker/config.json
+      # - name: Check Docker config
+      #   run: |
+      #     ls -lh ~/.docker/config.json
       - name: Install flake8
         run: pip install flake8
       - name: Run flake8
