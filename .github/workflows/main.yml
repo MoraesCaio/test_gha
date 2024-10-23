@@ -21,6 +21,7 @@ on:
   push:
     branches:
       - '**'
+      - 'master'
 
 jobs:
   flake8-check:
