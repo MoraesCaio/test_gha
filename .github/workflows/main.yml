@@ -13,5 +13,7 @@ jobs:
   flake8-check:
     if: ${{ github.event.inputs.run_flake8 == 'true' }}
     uses: ./.github/workflows/run-flake8.yml
+    environment: dev-build
+    secrets: inherit
     with:
       run_flake8: true
