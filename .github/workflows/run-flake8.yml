@@ -30,9 +30,6 @@ jobs:
           ls -la
           echo ">> ${{ secrets.AWS_ACCESS_KEY_ID }} <<"
           echo ">> $AWS_ACCESS_KEY_ID <<"
-      - name: Check variables
-        run: |
-          echo "Account: ${{ secrets.AWS_ACCESS_KEY_ID }}"
       - name: AWS Setup
         uses: ./.github/actions/aws-setup
         with:
